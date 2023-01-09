@@ -1,6 +1,6 @@
-import { NextPage } from 'next';
+import { NextPage } from "next";
 // import { useRouter } from "next/router";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
 interface FormProps {
     name: string;
@@ -17,7 +17,7 @@ const Index: NextPage = () => {
         // router.push("/log-in");
     };
     const tokenConfirm = () => {
-        console.log('asd');
+        console.log("asd");
     };
     return (
         <div className="max-w-xl mt-20 mx-auto w-full h-screen flex flex-col space-y-10 ">
@@ -28,7 +28,7 @@ const Index: NextPage = () => {
             >
                 <div className="relative z-0 w-full  group">
                     <input
-                        {...register('name', { required: true })}
+                        {...register("name", { required: true })}
                         type="text"
                         id="floating_name"
                         className="rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
 
                 <div className="relative z-0 w-full  group">
                     <input
-                        {...register('password', { required: true })}
+                        {...register("password", { required: true })}
                         type="password"
                         id="floating_pass"
                         className="rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -59,9 +59,8 @@ const Index: NextPage = () => {
                 </div>
                 <div className="relative z-0 w-full  group">
                     <input
-                        {...register('confirmPassword', {
+                        {...register("confirmPassword", {
                             required: true,
-                            validate: { samePass },
                         })}
                         type="password"
                         id="floating_confirm"
@@ -78,7 +77,7 @@ const Index: NextPage = () => {
 
                 <div className="relative z-0 w-full  group flex items-center">
                     <input
-                        {...register('phone', { required: true })}
+                        {...register("phone", { required: true })}
                         type="tel"
                         id="floating_phone"
                         className="appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
