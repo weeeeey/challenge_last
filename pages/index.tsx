@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useState } from "react";
 // import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
@@ -8,17 +9,39 @@ interface FormProps {
     confirmPassword: string;
     phone: number;
 }
+interface ConfirmProps {
+    token: number;
+    confirm: boolean;
+}
 
 const Index: NextPage = () => {
     // const router = useRouter();
     const { register, handleSubmit } = useForm<FormProps>();
+    const [auth, setAuth] = useState<ConfirmProps>({
+        token: 1,
+        confirm: false,
+    });
     const onVaild = (form: FormProps) => {
+        console.log(auth);
+        if (!auth.confirm) return;
         console.log(form);
         // router.push("/log-in");
     };
-    const tokenConfirm = () => {
-        console.log("asd");
+    const handleSend = () => {
+        setAuth((prev) => ({
+            ...prev,
+            token: Math.round(Math.random() * 1000000),
+        }));
+        console.log(auth);
     };
+    const handleConfirm = () => {
+        setAuth((prev) => ({
+            ...prev,
+            confirm: true,
+        }));
+        console.log(auth);
+    };
+
     return (
         <div className="max-w-xl mt-20 mx-auto w-full h-screen flex flex-col space-y-10 ">
             <h1 className="text-3xl font-semibold">계정을 생성하세요</h1>
@@ -90,12 +113,36 @@ const Index: NextPage = () => {
                         핸드폰 번호
                     </label>
                     <button
-                        onClick={tokenConfirm}
+                        onClick={handleSend}
                         className="absolute right-1 bg-slate-400 border-2 rounded-lg p-2 text-white focus:bg-blue-600 hover:bg-blue-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2"
                     >
                         인증번호 전송
                     </button>
                 </div>
+                {auth.token === 1 ? (
+                    <></>
+                ) : (
+                    <div className="relative z-0 w-1/2  group flex items-center">
+                        <input
+                            type="number"
+                            id="floating_phone"
+                            className="appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=" "
+                        />
+                        <label
+                            htmlFor="floating_name"
+                            className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                        >
+                            인증번호 입력
+                        </label>
+                        <button
+                            onClick={handleConfirm}
+                            className="absolute right-1 bg-slate-400 border-2 rounded-lg p-2 text-white focus:bg-blue-600 hover:bg-blue-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        >
+                            확인
+                        </button>
+                    </div>
+                )}
                 <input
                     className="hidden appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     type="text"
