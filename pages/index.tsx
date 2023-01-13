@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useState } from "react";
 // import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import DatePicker from "tailwindcss";
 
 interface FormProps {
     name: string;
@@ -174,8 +175,10 @@ When the Like button is pressed, save the like on the database and reflect the u
 사용자는 id에 해당하는 트윗의 내용과 좋아요 버튼을 볼 수 있어야 합니다.
 좋아요버튼을 클릭했 을 경우 좋아요의 상태값이 데이터베이스에 저장되어야 하며 useSWR의 mutate를 사용하여 업데이트를 반영해야 합니다.
 참고사항
+
 챌린지 blueprint에는 SQLite을 기반으로 한 Prisma가 설정되어있습니다.
 prisma.schema파일을 변경했다면 npm run db-sync를 실행하세요.
+
 SWR와 tailwind도 챌린지 blueprint에 설정되어 있습니다.
 환경설정
 블루프린트를 다운로드 받아. 로컬 컴퓨터에서 작업하세요.

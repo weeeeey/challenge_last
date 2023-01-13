@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 interface FormProps {
@@ -8,16 +7,10 @@ interface FormProps {
     phone?: number;
 }
 
-const cls = (...str: string[]): string => {
-    return str.join(" ");
-};
-
 const Login: NextPage = () => {
-    const router = useRouter();
-    const { register, watch, handleSubmit } = useForm<FormProps>();
+    const { register, handleSubmit } = useForm<FormProps>();
     const onVaild = (form: FormProps) => {
         console.log(form);
-        // router.push("/log-in");
     };
     return (
         <div className="max-w-xl mt-20 mx-auto w-full h-screen flex flex-col space-y-10 ">
