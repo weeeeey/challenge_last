@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { useState } from "react";
 // import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import DatePicker from "tailwindcss";
+import cls from "../lib/client/util";
 
 interface FormProps {
     name: string;
@@ -14,10 +14,16 @@ interface ConfirmProps {
     token: number;
     confirm: boolean;
 }
+interface PhoneConfirm {
+    token: number;
+}
 
 const Index: NextPage = () => {
     // const router = useRouter();
     const { register, handleSubmit } = useForm<FormProps>();
+
+    const { register: phoneReg, handleSubmit: phoneHandle } =
+        useForm<PhoneConfirm>();
     const [auth, setAuth] = useState<ConfirmProps>({
         token: 1,
         confirm: false,
@@ -28,6 +34,7 @@ const Index: NextPage = () => {
         console.log(form);
         // router.push("/log-in");
     };
+    const onPhoneVaild = () => {};
     const handleSend = () => {
         setAuth((prev) => ({
             ...prev,
@@ -60,7 +67,7 @@ const Index: NextPage = () => {
                     />
                     <label
                         htmlFor="floating_name"
-                        className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                        className="cursor-text bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
                     >
                         아이디
                     </label>
@@ -76,7 +83,7 @@ const Index: NextPage = () => {
                     />
                     <label
                         htmlFor="floating_pass"
-                        className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                        className="bg-white cursor-text peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
                     >
                         비밀번호
                     </label>
@@ -87,13 +94,13 @@ const Index: NextPage = () => {
                             required: true,
                         })}
                         type="password"
-                        id="floating_confirm"
+                        id="password_confirm"
                         className="rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" "
                     />
                     <label
-                        htmlFor="floating_confirm"
-                        className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                        htmlFor="password_confirm"
+                        className="cursor-text bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
                     >
                         비밀번호 확인
                     </label>
@@ -108,8 +115,8 @@ const Index: NextPage = () => {
                         placeholder=" "
                     />
                     <label
-                        htmlFor="floating_name"
-                        className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                        htmlFor="floating_phone"
+                        className="bg-white cursor-text peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
                     >
                         핸드폰 번호
                     </label>
@@ -120,32 +127,31 @@ const Index: NextPage = () => {
                         인증번호 전송
                     </button>
                 </div>
-                {auth.token === 1 ? (
-                    <></>
-                ) : (
+
+                <form onSubmit={phoneHandle(onPhoneVaild)}>
                     <div className="relative z-0 w-1/2  group flex items-center">
                         <input
+                            {...phoneReg("token", { required: true })}
                             type="number"
-                            id="floating_phone"
+                            id="floating_confirm"
                             className="appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" "
                         />
                         <label
-                            htmlFor="floating_name"
-                            className="bg-white peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
+                            htmlFor="floating_confirm"
+                            className="bg-white cursor-text peer-focus:font-medium absolute text-xl text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 z-10 origin-[0] peer-focus:px-2 peer-focus:left-1 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0  peer-focus:scale-75 peer-focus:-translate-y-6 left-2"
                         >
                             인증번호 입력
                         </label>
-                        <button
-                            onClick={handleConfirm}
-                            className="absolute right-1 bg-slate-400 border-2 rounded-lg p-2 text-white focus:bg-blue-600 hover:bg-blue-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2"
-                        >
+                        <button className="absolute right-1 bg-slate-400 border-2 rounded-lg p-2 text-white focus:bg-blue-600 hover:bg-blue-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
                             확인
                         </button>
                     </div>
-                )}
+                </form>
                 <input
-                    className="hidden appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    className={cls(
+                        "hidden appearance-none rounded-lg pt-4 pb-2 pl-3 w-full text-gray-900 bg-transparent border-2  border-gray-300  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    )}
                     type="text"
                 />
                 <button className="border-2 rounded-full w-full h-16  text-white bg-gray-400 focus:bg-blue-600 hover:bg-blue-600 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2">
